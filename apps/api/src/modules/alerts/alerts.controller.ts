@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import type { Request, Response } from "express";
 import { prisma } from "../../lib/prisma.js";
 import { asyncHandler } from "../../utils/async-handler.js";
+import { getRequiredRouteParam } from "../../utils/route-params.js";
 
 export const listAlertsController = asyncHandler(async (req: Request, res: Response) => {
   const alerts = await prisma.alert.findMany({
@@ -29,9 +30,11 @@ export const createAlertController = asyncHandler(async (req: Request, res: Resp
 });
 
 export const updateAlertController = asyncHandler(async (req: Request, res: Response) => {
+  const alertId = getRequiredRouteParam(req.params.id, "id");
+
   await prisma.alert.updateMany({
     where: {
-      id: req.params.id,
+      id: alertId,
       userId: req.user!.id
     },
     data: req.body
@@ -39,7 +42,7 @@ export const updateAlertController = asyncHandler(async (req: Request, res: Resp
 
   const alert = await prisma.alert.findFirstOrThrow({
     where: {
-      id: req.params.id,
+      id: alertId,
       userId: req.user!.id
     }
   });
@@ -48,9 +51,11 @@ export const updateAlertController = asyncHandler(async (req: Request, res: Resp
 });
 
 export const deleteAlertController = asyncHandler(async (req: Request, res: Response) => {
+  const alertId = getRequiredRouteParam(req.params.id, "id");
+
   await prisma.alert.deleteMany({
     where: {
-      id: req.params.id,
+      id: alertId,
       userId: req.user!.id
     }
   });

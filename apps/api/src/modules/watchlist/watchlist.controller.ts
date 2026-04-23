@@ -2,6 +2,7 @@ import { StatusCodes } from "http-status-codes";
 import type { Request, Response } from "express";
 import { prisma } from "../../lib/prisma.js";
 import { asyncHandler } from "../../utils/async-handler.js";
+import { getRequiredRouteParam } from "../../utils/route-params.js";
 
 export const getWatchlistController = asyncHandler(async (req: Request, res: Response) => {
   const watchlist = await prisma.watchlist.findMany({
@@ -34,15 +35,16 @@ export const addWatchlistController = asyncHandler(async (req: Request, res: Res
 });
 
 export const deleteWatchlistController = asyncHandler(async (req: Request, res: Response) => {
+  const stockId = getRequiredRouteParam(req.params.stockId, "stockId");
+
   await prisma.watchlist.delete({
     where: {
       userId_stockId: {
         userId: req.user!.id,
-        stockId: req.params.stockId
+        stockId
       }
     }
   });
 
   res.status(StatusCodes.NO_CONTENT).send();
 });
-

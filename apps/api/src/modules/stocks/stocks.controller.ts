@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import type { Request, Response } from "express";
 import { asyncHandler } from "../../utils/async-handler.js";
+import { getRequiredRouteParam } from "../../utils/route-params.js";
 import { getStockDetail, getTopMovers, listStocks } from "./stocks.service.js";
 
 export const listStocksController = asyncHandler(async (_req: Request, res: Response) => {
@@ -8,7 +9,8 @@ export const listStocksController = asyncHandler(async (_req: Request, res: Resp
 });
 
 export const getStockDetailController = asyncHandler(async (req: Request, res: Response) => {
-  res.status(StatusCodes.OK).json(await getStockDetail(req.params.symbol));
+  const symbol = getRequiredRouteParam(req.params.symbol, "symbol");
+  res.status(StatusCodes.OK).json(await getStockDetail(symbol));
 });
 
 export const getTopGainersController = asyncHandler(async (_req: Request, res: Response) => {
@@ -18,4 +20,3 @@ export const getTopGainersController = asyncHandler(async (_req: Request, res: R
 export const getTopLosersController = asyncHandler(async (_req: Request, res: Response) => {
   res.status(StatusCodes.OK).json(await getTopMovers("losers"));
 });
-
