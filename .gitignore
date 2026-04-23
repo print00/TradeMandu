@@ -1,0 +1,11 @@
+node_modules
+.DS_Store
+.env
+.env.*
+dist
+.expo
+.turbo
+coverage
+apps/api/generated
+apps/mobile/.expo
+
