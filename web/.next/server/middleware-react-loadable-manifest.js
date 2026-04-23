@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST='{"components/chart-component.tsx -> @/components/charts/stock-history-chart":{"id":48290,"files":["static/chunks/852.3b00cfd0e909529c.js","static/chunks/290.3d6abf9693f1f1f8.js"]}}';

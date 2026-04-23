@@ -1,0 +1,45 @@
+services:
+  - type: web
+    name: trademandu-api
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run prisma:generate && npm run build:api
+    startCommand: npm --workspace apps/api run start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: trademandu-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: trademandu-redis
+          type: keyvalue
+          property: connectionString
+      - key: CLIENT_URL
+        sync: false
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: ACCESS_TOKEN_TTL
+        value: 15m
+      - key: REFRESH_TOKEN_TTL
+        value: 7d
+      - key: OTP_EXPIRY_MINUTES
+        value: "10"
+      - key: PAPER_TRADING_START_BALANCE
+        value: "100000"
+
+  - type: keyvalue
+    name: trademandu-redis
+    plan: free
+    ipAllowList: []
+    maxmemoryPolicy: allkeys-lru
+
+databases:
+  - name: trademandu-db
+    plan: free
+    databaseName: trademandu

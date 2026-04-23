@@ -1,0 +1,12 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/login/page": "/login",
+  "/page": "/",
+  "/(dashboard)/ipo/page": "/ipo",
+  "/(dashboard)/dashboard/page": "/dashboard",
+  "/(dashboard)/market/page": "/market",
+  "/(dashboard)/portfolio/page": "/portfolio",
+  "/(dashboard)/alerts/page": "/alerts",
+  "/(dashboard)/watchlist/page": "/watchlist",
+  "/(dashboard)/market/[symbol]/page": "/market/[symbol]"
+}

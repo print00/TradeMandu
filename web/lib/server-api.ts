@@ -25,16 +25,24 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return response.json();
 }
 
+async function requestOrFallback<T>(path: string, fallback: T): Promise<T> {
+  try {
+    return await request<T>(path);
+  } catch {
+    return fallback;
+  }
+}
+
 export function getStocks() {
-  return request<Stock[]>("/stocks");
+  return requestOrFallback<Stock[]>("/stocks", []);
 }
 
 export function getTopGainers() {
-  return request<Stock[]>("/stocks/top-gainers");
+  return requestOrFallback<Stock[]>("/stocks/top-gainers", []);
 }
 
 export function getTopLosers() {
-  return request<Stock[]>("/stocks/top-losers");
+  return requestOrFallback<Stock[]>("/stocks/top-losers", []);
 }
 
 export function getStockDetail(symbol: string) {
@@ -42,7 +50,7 @@ export function getStockDetail(symbol: string) {
 }
 
 export function getIpos() {
-  return request<IpoOffer[]>("/ipo");
+  return requestOrFallback<IpoOffer[]>("/ipo", []);
 }
 
 export function getPortfolioWithToken(token: string) {
@@ -62,4 +70,3 @@ export function getWatchlistWithToken(token: string) {
     cache: "no-store"
   });
 }
-
