@@ -1,6 +1,7 @@
 import { StatusCodes } from "http-status-codes";
 import dayjs from "dayjs";
 import { env, isProduction } from "../../config/env.js";
+import { sendOtpEmail } from "../../lib/email.js";
 import { prisma } from "../../lib/prisma.js";
 import { ApiError } from "../../utils/api-error.js";
 import {
@@ -32,7 +33,7 @@ export async function requestOtp(email: string, name?: string) {
   const otp = generateOtpCode();
   const codeHash = await hashValue(otp);
 
-  await prisma.otpCode.create({
+  const otpRecord = await prisma.otpCode.create({
     data: {
       userId: user.id,
       codeHash,
@@ -40,9 +41,21 @@ export async function requestOtp(email: string, name?: string) {
     }
   });
 
+  try {
+    await sendOtpEmail(email, otp, env.OTP_EXPIRY_MINUTES);
+  } catch (error) {
+    await prisma.otpCode.delete({ where: { id: otpRecord.id } }).catch(() => null);
+
+    if (isProduction) {
+      throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Unable to send OTP email");
+    }
+
+    throw error;
+  }
+
   return {
     message: "OTP generated successfully",
-    ...(isProduction ? {} : { devOtp: otp })
+    ...(!isProduction || env.OTP_DEV_MODE ? { devOtp: otp } : {})
   };
 }
 
@@ -134,4 +147,3 @@ export async function refreshSession(refreshToken: string) {
     accessToken: signAccessToken(payload.sub)
   };
 }
-

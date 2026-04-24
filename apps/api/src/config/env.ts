@@ -14,9 +14,13 @@ const envSchema = z.object({
   REFRESH_TOKEN_TTL: z.string().default("7d"),
   REDIS_URL: z.string().default("redis://localhost:6379"),
   OTP_EXPIRY_MINUTES: z.coerce.number().default(10),
-  PAPER_TRADING_START_BALANCE: z.coerce.number().default(100000)
+  PAPER_TRADING_START_BALANCE: z.coerce.number().default(100000),
+  OTP_DEV_MODE: z.coerce.boolean().default(false),
+  RESEND_API_KEY: z.string().trim().optional(),
+  OTP_EMAIL_FROM: z.string().trim().optional(),
+  OTP_EMAIL_REPLY_TO: z.string().trim().optional(),
+  OTP_EMAIL_SUBJECT: z.string().default("Your TradeMandu OTP")
 });
 
 export const env = envSchema.parse(process.env);
 export const isProduction = env.NODE_ENV === "production";
-

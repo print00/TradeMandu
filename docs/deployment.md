@@ -32,6 +32,11 @@ ACCESS_TOKEN_TTL=15m
 REFRESH_TOKEN_TTL=7d
 OTP_EXPIRY_MINUTES=10
 PAPER_TRADING_START_BALANCE=100000
+OTP_DEV_MODE=false
+RESEND_API_KEY=re_xxxxxxxxx
+OTP_EMAIL_FROM="TradeMandu <onboarding@your-domain.com>"
+OTP_EMAIL_REPLY_TO=support@your-domain.com
+OTP_EMAIL_SUBJECT="Your TradeMandu OTP"
 ```
 
 Create and commit Prisma migrations before deploying a real production database:
@@ -69,6 +74,10 @@ NEXT_PUBLIC_API_URL=https://your-api-domain.com/api/v1
 ```
 
 After the web deploy has a final URL, update the API `CLIENT_URL` to that exact origin and redeploy the API so CORS allows browser requests.
+
+For OTP email delivery, verify your sending domain in Resend and set the API email variables on the API service before testing sign-in.
+
+For temporary hosted testing without email delivery, set `OTP_DEV_MODE=true` on the API service. The `/auth/request-otp` response will include a `devOtp` that the current web app already displays on screen.
 
 ## 3. Quick smoke test
 
