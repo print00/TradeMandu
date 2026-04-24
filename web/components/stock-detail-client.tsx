@@ -40,17 +40,18 @@ export function StockDetailClient({ stock }: { stock: Stock }) {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-panel border border-line bg-panel p-6 shadow-panel">
+    <div className="page-shell">
+      <div className="page-hero">
+        <div className="hero-band" />
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <p className="text-sm uppercase tracking-[0.2em] text-textMuted">{stock.sector}</p>
-            <h1 className="mt-3 text-4xl font-semibold text-text">{stock.symbol}</h1>
+            <p className="eyebrow">{stock.sector}</p>
+            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-text">{stock.symbol}</h1>
             <p className="mt-2 text-base text-textMuted">{stock.name}</p>
           </div>
           <div className="text-right">
-            <p className="text-3xl font-semibold text-text">{formatCurrency(stock.quote?.ltp ?? 0)}</p>
-            <p className={(stock.quote?.change ?? 0) >= 0 ? "mt-2 text-gain" : "mt-2 text-loss"}>
+            <p className="text-3xl font-semibold tracking-tight text-text">{formatCurrency(stock.quote?.ltp ?? 0)}</p>
+            <p className={(Number(stock.quote?.change ?? 0)) >= 0 ? "mt-2 text-gain" : "mt-2 text-loss"}>
               {formatCurrency(stock.quote?.change ?? 0)} • {formatPercent(stock.quote?.changePercent ?? 0)}
             </p>
           </div>
@@ -58,24 +59,24 @@ export function StockDetailClient({ stock }: { stock: Stock }) {
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.5fr,0.8fr]">
-        <div className="rounded-panel border border-line bg-panel p-6 shadow-panel">
+        <div className="surface p-6">
           <div className="mb-6 flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-text">Price History</h2>
-              <p className="text-sm text-textMuted">Lazy-loaded chart from historical backend data</p>
+              <h2 className="section-title">Price History</h2>
+              <p className="section-subtitle">Historical movement rendered as a cleaner, faster chart.</p>
             </div>
           </div>
           <ChartComponent data={history} />
         </div>
 
         <div className="space-y-6">
-          <div className="rounded-panel border border-line bg-panel p-6 shadow-panel">
-            <h2 className="text-xl font-semibold text-text">Paper Trading</h2>
+          <div className="surface p-6">
+            <h2 className="section-title">Paper Trading</h2>
             <p className="mt-2 text-sm text-textMuted">
               Uses the existing `/trades/paper` endpoint. No brokerage execution.
             </p>
             <input
-              className="mt-5 w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm outline-none"
+              className="mt-5 w-full rounded-panel border border-line bg-bg/75 px-4 py-3 text-sm outline-none"
               min="1"
               type="number"
               value={quantity}
@@ -83,7 +84,7 @@ export function StockDetailClient({ stock }: { stock: Stock }) {
             />
             <div className="mt-4 flex gap-3">
               <button
-                className="flex-1 rounded-2xl bg-gain px-4 py-3 text-sm font-medium text-white"
+                className="flex-1 rounded-panel bg-gain px-4 py-3 text-sm font-medium text-white"
                 disabled={tradeState === "submitting"}
                 onClick={() => submitTrade("BUY")}
                 type="button"
@@ -91,7 +92,7 @@ export function StockDetailClient({ stock }: { stock: Stock }) {
                 Buy
               </button>
               <button
-                className="flex-1 rounded-2xl bg-loss px-4 py-3 text-sm font-medium text-white"
+                className="flex-1 rounded-panel bg-loss px-4 py-3 text-sm font-medium text-white"
                 disabled={tradeState === "submitting"}
                 onClick={() => submitTrade("SELL")}
                 type="button"
@@ -102,8 +103,8 @@ export function StockDetailClient({ stock }: { stock: Stock }) {
             {status ? <p className="mt-4 text-sm text-textMuted">{status}</p> : null}
           </div>
 
-          <div className="rounded-panel border border-line bg-panel p-6 shadow-panel">
-            <h2 className="text-xl font-semibold text-text">Snapshot</h2>
+          <div className="surface p-6">
+            <h2 className="section-title">Snapshot</h2>
             <dl className="mt-5 space-y-4 text-sm">
               <div className="flex justify-between">
                 <dt className="text-textMuted">Volume</dt>
@@ -132,8 +133,8 @@ export function StockDetailClient({ stock }: { stock: Stock }) {
         </div>
       </div>
 
-      <div className="rounded-panel border border-line bg-panel p-6 shadow-panel">
-        <h2 className="text-xl font-semibold text-text">Company Info</h2>
+      <div className="surface p-6">
+        <h2 className="section-title">Company Info</h2>
         <p className="mt-3 text-sm leading-7 text-textMuted">
           {stock.description ??
             "Company fundamentals and narrative will appear here as the backend market provider expands."}
@@ -142,4 +143,3 @@ export function StockDetailClient({ stock }: { stock: Stock }) {
     </div>
   );
 }
-

@@ -28,14 +28,15 @@ export function MarketPageClient({
   }, [query, stocks]);
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-panel border border-line bg-panel p-6 shadow-panel">
-        <h1 className="text-3xl font-semibold text-text">Market</h1>
-        <p className="mt-2 text-sm text-textMuted">
+    <div className="page-shell">
+      <div className="page-hero">
+        <div className="hero-band" />
+        <h1 className="page-title">Read the whole market at a glance.</h1>
+        <p className="page-subtitle">
           Search the NEPSE list, review movers, and drill into any symbol without changing the backend.
         </p>
         <input
-          className="mt-5 w-full rounded-2xl border border-line bg-bg px-4 py-3 text-sm outline-none placeholder:text-textMuted"
+          className="mt-5 w-full rounded-panel border border-line bg-bg/75 px-4 py-3 text-sm outline-none placeholder:text-textMuted"
           placeholder="Search by stock name, symbol, or sector"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -72,4 +73,3 @@ export function MarketPageClient({
     </div>
   );
 }
-

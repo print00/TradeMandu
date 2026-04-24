@@ -23,10 +23,36 @@ const config: Config = {
         accentSoft: "rgb(var(--accent-soft) / <alpha-value>)"
       },
       boxShadow: {
-        panel: "0 20px 45px rgba(15, 23, 42, 0.08)"
+        panel: "0 18px 40px rgba(8, 15, 36, 0.08)",
+        depth: "0 32px 80px rgba(8, 15, 36, 0.16)",
+        glow: "0 0 0 1px rgba(96, 165, 250, 0.18), 0 20px 60px rgba(37, 99, 235, 0.18)"
       },
       borderRadius: {
-        panel: "28px"
+        panel: "8px"
+      },
+      animation: {
+        "fade-up": "fadeUp 700ms ease forwards",
+        float: "float 6s ease-in-out infinite",
+        shimmer: "shimmer 2.8s linear infinite",
+        drift: "drift 18s linear infinite"
+      },
+      keyframes: {
+        fadeUp: {
+          "0%": { opacity: "0", transform: "translateY(12px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" }
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-8px)" }
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" }
+        },
+        drift: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" }
+        }
       }
     }
   },
@@ -34,4 +60,3 @@ const config: Config = {
 };
 
 export default config;
-

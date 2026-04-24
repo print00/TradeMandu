@@ -4,7 +4,7 @@ import type { PortfolioPosition } from "@/types";
 export function PortfolioTable({ positions }: { positions: PortfolioPosition[] }) {
   if (positions.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-line px-4 py-10 text-center text-sm text-textMuted">
+      <div className="rounded-panel border border-dashed border-line px-4 py-10 text-center text-sm text-textMuted">
         Your holdings will appear here once the authenticated portfolio endpoint returns data.
       </div>
     );
@@ -25,7 +25,7 @@ export function PortfolioTable({ positions }: { positions: PortfolioPosition[] }
         </thead>
         <tbody>
           {positions.map((position) => (
-            <tr key={position.id} className="border-b border-line/70 text-sm text-text">
+            <tr key={position.id} className="border-b border-line/70 text-sm text-text transition-colors hover:bg-panelSoft/60">
               <td className="py-4">
                 <div>
                   <p className="font-medium">{position.symbol}</p>
@@ -47,4 +47,3 @@ export function PortfolioTable({ positions }: { positions: PortfolioPosition[] }
     </div>
   );
 }
-

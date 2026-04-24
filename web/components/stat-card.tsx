@@ -12,11 +12,11 @@ export function StatCard({
   tone?: "default" | "gain" | "loss";
 }) {
   return (
-    <div className="rounded-panel border border-line bg-panel p-5 shadow-panel">
-      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-textMuted">{label}</p>
+    <div className="surface p-5">
+      <p className="metric-label">{label}</p>
       <p
         className={cn(
-          "mt-3 text-3xl font-semibold",
+          "mt-3 text-3xl font-semibold tracking-tight",
           tone === "gain" && "text-gain",
           tone === "loss" && "text-loss"
         )}
@@ -27,4 +27,3 @@ export function StatCard({
     </div>
   );
 }
-

@@ -3,29 +3,29 @@
 @tailwind utilities;
 
 :root {
-  --bg: 245 247 251;
+  --bg: 236 240 248;
   --panel: 255 255 255;
-  --panel-soft: 241 245 249;
-  --line: 226 232 240;
-  --text: 15 23 42;
-  --text-muted: 100 116 139;
-  --gain: 22 163 74;
+  --panel-soft: 245 247 251;
+  --line: 214 223 238;
+  --text: 12 18 35;
+  --text-muted: 97 109 132;
+  --gain: 14 165 99;
   --loss: 220 38 38;
   --accent: 37 99 235;
   --accent-soft: 219 234 254;
 }
 
 .dark {
-  --bg: 2 6 23;
-  --panel: 15 23 42;
-  --panel-soft: 30 41 59;
-  --line: 51 65 85;
+  --bg: 7 10 18;
+  --panel: 14 18 29;
+  --panel-soft: 21 28 43;
+  --line: 39 49 68;
   --text: 241 245 249;
-  --text-muted: 148 163 184;
+  --text-muted: 146 163 188;
   --gain: 74 222 128;
-  --loss: 248 113 113;
+  --loss: 251 113 133;
   --accent: 96 165 250;
-  --accent-soft: 30 64 175;
+  --accent-soft: 30 41 59;
 }
 
 html {
@@ -38,9 +38,170 @@ html.dark {
 
 body {
   @apply bg-bg text-text antialiased;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(236, 240, 248, 0.95)),
+    linear-gradient(120deg, rgba(37, 99, 235, 0.06), rgba(14, 165, 99, 0.04) 42%, rgba(255, 255, 255, 0));
+  background-attachment: fixed;
+}
+
+.dark body {
+  background-image:
+    linear-gradient(to bottom, rgba(7, 10, 18, 0.92), rgba(7, 10, 18, 0.98)),
+    linear-gradient(140deg, rgba(37, 99, 235, 0.16), rgba(14, 165, 99, 0.08) 40%, rgba(7, 10, 18, 0));
 }
 
 * {
   @apply border-line;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.18);
+}
+
+@layer base {
+  input,
+  select,
+  textarea {
+    @apply transition-all duration-200;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    @apply border-accent/40 ring-2 ring-accent/10;
+  }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-panel border border-line/80 bg-panel/90 shadow-panel backdrop-blur;
+  }
+
+  .surface-muted {
+    @apply rounded-panel border border-line/70 bg-panelSoft/80 backdrop-blur;
+  }
+
+  .cinematic-surface {
+    @apply surface overflow-hidden;
+    background-image:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(245, 247, 251, 0.9)),
+      linear-gradient(120deg, rgba(37, 99, 235, 0.12), rgba(14, 165, 99, 0.08) 45%, transparent 70%);
+  }
+
+  .dark .cinematic-surface {
+    background-image:
+      linear-gradient(135deg, rgba(14, 18, 29, 0.92), rgba(16, 23, 38, 0.95)),
+      linear-gradient(120deg, rgba(59, 130, 246, 0.18), rgba(16, 185, 129, 0.12) 45%, transparent 75%);
+  }
+
+  .hero-grid {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(148, 163, 184, 0.09) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(148, 163, 184, 0.09) 1px, transparent 1px);
+    background-size: 36px 36px;
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
+    pointer-events: none;
+  }
+
+  .hero-band {
+    position: absolute;
+    inset: auto -20% 12% -10%;
+    height: 160px;
+    transform: rotate(-6deg);
+    background: linear-gradient(90deg, rgba(37, 99, 235, 0.12), rgba(14, 165, 99, 0.08), rgba(37, 99, 235, 0.12));
+    filter: blur(12px);
+    pointer-events: none;
+  }
+
+  .page-shell {
+    @apply space-y-6;
+    animation: fadeUp 550ms ease forwards;
+  }
+
+  .page-hero {
+    @apply cinematic-surface hero-grid relative p-6 md:p-8;
+  }
+
+  .page-title {
+    @apply text-3xl font-semibold tracking-tight text-text md:text-4xl;
+  }
+
+  .page-subtitle {
+    @apply mt-3 max-w-3xl text-sm leading-6 text-textMuted md:text-base;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-textMuted;
+  }
+
+  .metric-strip {
+    @apply mt-6 grid gap-3 md:grid-cols-3;
+  }
+
+  .metric-card {
+    @apply surface-muted p-4;
+  }
+
+  .metric-label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.22em] text-textMuted;
+  }
+
+  .metric-value {
+    @apply mt-3 text-2xl font-semibold text-text;
+  }
+
+  .metric-hint {
+    @apply mt-1 text-xs text-textMuted;
+  }
+
+  .ticker-wrap {
+    @apply overflow-hidden border-y border-line/70 bg-panel/60 py-2;
+  }
+
+  .ticker-track {
+    width: max-content;
+    animation: drift 26s linear infinite;
+  }
+
+  .ticker-item {
+    @apply inline-flex items-center gap-2 px-4 text-xs font-medium text-textMuted;
+  }
+
+  .ticker-symbol {
+    @apply text-text;
+  }
+
+  .glass-button {
+    @apply inline-flex items-center gap-2 rounded-panel border border-line/80 bg-panel/80 px-4 py-2.5 text-sm font-medium text-text transition duration-200 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-panel;
+  }
+
+  .primary-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-panel bg-text px-4 py-3 text-sm font-medium text-bg transition duration-200 hover:-translate-y-0.5 hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .accent-button {
+    @apply inline-flex items-center justify-center gap-2 rounded-panel bg-accent px-4 py-3 text-sm font-medium text-white transition duration-200 hover:-translate-y-0.5 hover:shadow-glow disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .data-grid {
+    @apply grid gap-4 xl:grid-cols-2;
+  }
+
+  .section-title {
+    @apply text-xl font-semibold text-text;
+  }
+
+  .section-subtitle {
+    @apply mt-1 text-sm text-textMuted;
+  }
 }
 

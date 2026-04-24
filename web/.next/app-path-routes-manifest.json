@@ -3,10 +3,10 @@
   "/login/page": "/login",
   "/page": "/",
   "/(dashboard)/ipo/page": "/ipo",
-  "/(dashboard)/dashboard/page": "/dashboard",
-  "/(dashboard)/market/page": "/market",
-  "/(dashboard)/portfolio/page": "/portfolio",
-  "/(dashboard)/alerts/page": "/alerts",
   "/(dashboard)/watchlist/page": "/watchlist",
+  "/(dashboard)/dashboard/page": "/dashboard",
+  "/(dashboard)/portfolio/page": "/portfolio",
+  "/(dashboard)/market/page": "/market",
+  "/(dashboard)/alerts/page": "/alerts",
   "/(dashboard)/market/[symbol]/page": "/market/[symbol]"
 }

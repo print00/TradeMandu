@@ -47,15 +47,16 @@ export function AlertsPageClient({ stocks }: { stocks: Stock[] }) {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-panel border border-line bg-panel p-6 shadow-panel">
-        <h1 className="text-3xl font-semibold text-text">Alerts</h1>
-        <p className="mt-2 text-sm text-textMuted">
+    <div className="page-shell">
+      <div className="page-hero">
+        <div className="hero-band" />
+        <h1 className="page-title">Create alert ladders that feel actionable.</h1>
+        <p className="page-subtitle">
           Create price, percent-change, and volume alerts using the current backend contracts.
         </p>
         <div className="mt-5 grid gap-3 md:grid-cols-4">
           <select
-            className="rounded-2xl border border-line bg-bg px-4 py-3 text-sm outline-none"
+            className="rounded-panel border border-line bg-bg/75 px-4 py-3 text-sm outline-none"
             value={selectedStockId}
             onChange={(event) => setSelectedStockId(event.target.value)}
           >
@@ -66,7 +67,7 @@ export function AlertsPageClient({ stocks }: { stocks: Stock[] }) {
             ))}
           </select>
           <select
-            className="rounded-2xl border border-line bg-bg px-4 py-3 text-sm outline-none"
+            className="rounded-panel border border-line bg-bg/75 px-4 py-3 text-sm outline-none"
             value={type}
             onChange={(event) => setType(event.target.value as Alert["type"])}
           >
@@ -75,16 +76,12 @@ export function AlertsPageClient({ stocks }: { stocks: Stock[] }) {
             <option value="VOLUME">Volume</option>
           </select>
           <input
-            className="rounded-2xl border border-line bg-bg px-4 py-3 text-sm outline-none"
+            className="rounded-panel border border-line bg-bg/75 px-4 py-3 text-sm outline-none"
             value={target}
             onChange={(event) => setTarget(event.target.value)}
             placeholder="Target"
           />
-          <button
-            className="rounded-2xl bg-accent px-4 py-3 text-sm font-medium text-white"
-            onClick={createAlert}
-            type="button"
-          >
+          <button className="accent-button" onClick={createAlert} type="button">
             Create Alert
           </button>
         </div>
@@ -92,7 +89,7 @@ export function AlertsPageClient({ stocks }: { stocks: Stock[] }) {
 
       <div className="grid gap-4 xl:grid-cols-2">
         {alerts.map((alert) => (
-          <div key={alert.id} className="rounded-panel border border-line bg-panel p-5 shadow-panel">
+          <div key={alert.id} className="surface p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-lg font-semibold text-text">{alert.stock?.symbol ?? alert.stockId}</p>
@@ -108,4 +105,3 @@ export function AlertsPageClient({ stocks }: { stocks: Stock[] }) {
     </div>
   );
 }
-

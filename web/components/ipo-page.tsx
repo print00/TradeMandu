@@ -6,25 +6,24 @@ export function IpoPage({ ipos }: { ipos: IpoOffer[] }) {
   const open = ipos.filter((ipo) => ipo.status === "OPEN");
 
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="text-3xl font-semibold text-text">IPO Radar</h1>
-        <p className="mt-2 text-sm text-textMuted">
-          Upcoming and open IPOs powered by the existing backend offer feed.
-        </p>
+    <div className="page-shell">
+      <div className="page-hero">
+        <div className="hero-band" />
+        <h1 className="page-title">IPO radar with cleaner timing cues.</h1>
+        <p className="page-subtitle">Upcoming and open IPOs powered by the existing backend offer feed.</p>
       </div>
 
       <section>
         <h2 className="mb-4 text-xl font-semibold text-text">Open IPOs</h2>
         <div className="grid gap-4 xl:grid-cols-2">
           {open.map((ipo) => (
-            <div key={ipo.id} className="rounded-panel border border-line bg-panel p-5 shadow-panel">
+            <div key={ipo.id} className="surface p-5">
               <div className="flex items-start justify-between gap-4">
                 <div>
                   <p className="text-lg font-semibold text-text">{ipo.companyName}</p>
                   <p className="mt-1 text-sm text-textMuted">{ipo.symbol ?? "Primary issue"}</p>
                 </div>
-                <span className="rounded-full bg-gain/10 px-3 py-1 text-xs font-semibold text-gain">OPEN</span>
+                <span className="rounded-panel bg-gain/10 px-3 py-1 text-xs font-semibold text-gain">OPEN</span>
               </div>
               <div className="mt-5 grid grid-cols-2 gap-4 text-sm">
                 <div>
@@ -47,7 +46,7 @@ export function IpoPage({ ipos }: { ipos: IpoOffer[] }) {
         <h2 className="mb-4 text-xl font-semibold text-text">Upcoming IPOs</h2>
         <div className="grid gap-4 xl:grid-cols-2">
           {upcoming.map((ipo) => (
-            <div key={ipo.id} className="rounded-panel border border-line bg-panel p-5 shadow-panel">
+            <div key={ipo.id} className="surface p-5">
               <p className="text-lg font-semibold text-text">{ipo.companyName}</p>
               <p className="mt-2 text-sm text-textMuted">
                 Opens {formatDate(ipo.openingDate)} • {ipo.units.toLocaleString("en-NP")} units
@@ -60,4 +59,3 @@ export function IpoPage({ ipos }: { ipos: IpoOffer[] }) {
     </div>
   );
 }
-

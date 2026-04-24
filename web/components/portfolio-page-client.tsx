@@ -31,10 +31,11 @@ export function PortfolioPageClient() {
   }, [setData, setLoading]);
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-semibold text-text">Portfolio</h1>
-        <p className="mt-2 text-sm text-textMuted">Holdings, current prices, and P/L by stock.</p>
+    <div className="page-shell">
+      <div className="page-hero">
+        <div className="hero-band" />
+        <h1 className="page-title">Portfolio depth with cleaner attribution.</h1>
+        <p className="page-subtitle">Holdings, current prices, and P/L by stock in a more readable command view.</p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
@@ -52,10 +53,9 @@ export function PortfolioPageClient() {
         />
       </div>
 
-      <div className="rounded-panel border border-line bg-panel p-5 shadow-panel">
+      <div className="surface p-5">
         <PortfolioTable positions={data?.positions ?? []} />
       </div>
     </div>
   );
 }
-
