@@ -50,6 +50,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/portfolio": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/portfolio",
+      "dataRoute": "/portfolio.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/watchlist": {
       "experimentalBypassFor": [
         {
@@ -75,7 +99,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/market": {
+    "/dashboard": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -89,33 +113,8 @@
       ],
       "initialRevalidateSeconds": 30,
       "initialExpireSeconds": 31536000,
-      "srcRoute": "/market",
-      "dataRoute": "/market.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/ipo": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": 30,
-      "initialExpireSeconds": 31536000,
-      "srcRoute": "/ipo",
-      "dataRoute": "/ipo.rsc",
+      "srcRoute": "/dashboard",
+      "dataRoute": "/dashboard.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -174,7 +173,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/dashboard": {
+    "/ipo": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -188,32 +187,8 @@
       ],
       "initialRevalidateSeconds": 30,
       "initialExpireSeconds": 31536000,
-      "srcRoute": "/dashboard",
-      "dataRoute": "/dashboard.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/portfolio": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/portfolio",
-      "dataRoute": "/portfolio.rsc",
+      "srcRoute": "/ipo",
+      "dataRoute": "/ipo.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",

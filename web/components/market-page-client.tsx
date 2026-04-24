@@ -1,19 +1,28 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { StockCard } from "@/components/stock-card";
 import type { Stock } from "@/types";
 
 export function MarketPageClient({
   stocks,
   gainers,
-  losers
+  losers,
+  initialQuery = ""
 }: {
   stocks: Stock[];
   gainers: Stock[];
   losers: Stock[];
+  initialQuery?: string;
 }) {
-  const [query, setQuery] = useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [query, setQuery] = useState(initialQuery);
+
+  useEffect(() => {
+    setQuery(initialQuery);
+  }, [initialQuery]);
 
   const filteredStocks = useMemo(() => {
     const normalizedQuery = query.toLowerCase().trim();
@@ -26,6 +35,26 @@ export function MarketPageClient({
         stock.sector.toLowerCase().includes(normalizedQuery)
     );
   }, [query, stocks]);
+
+  useEffect(() => {
+    const normalizedQuery = query.trim();
+    const currentQuery = searchParams.get("q") ?? "";
+
+    if (normalizedQuery === currentQuery) {
+      return;
+    }
+
+    const nextParams = new URLSearchParams(searchParams.toString());
+
+    if (normalizedQuery) {
+      nextParams.set("q", normalizedQuery);
+    } else {
+      nextParams.delete("q");
+    }
+
+    const nextUrl = nextParams.toString() ? `/market?${nextParams.toString()}` : "/market";
+    router.replace(nextUrl, { scroll: false });
+  }, [query, router, searchParams]);
 
   return (
     <div className="page-shell">
