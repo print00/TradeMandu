@@ -3,9 +3,10 @@ node_modules
 .env
 .env.*
 dist
+.next
+web/.next
 .expo
 .turbo
 coverage
 apps/api/generated
 apps/mobile/.expo
-
